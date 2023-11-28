@@ -39,7 +39,8 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @extends('admin.partials.sidebar')
+
+        @yield('sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -51,7 +52,7 @@
             </div>
             <!-- /.content-header -->
 
-            @yield('dynamic_content')
+            @yield('content')
         </div>
         <!-- /.content-wrapper -->
 
