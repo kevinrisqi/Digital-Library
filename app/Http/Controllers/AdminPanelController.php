@@ -11,7 +11,6 @@ class AdminPanelController extends Controller
         return view('admin.index');
     }
 
-
     public function showDashboard()
     {
         return view('admin.pages.dashboard');

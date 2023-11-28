@@ -51,16 +51,7 @@
             </div>
             <!-- /.content-header -->
 
-            @section('content')
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <!-- Dynamic content from user clicks -->
-                    @yield('dynamic_content')
-                </div>
-            </div>
-            <!-- /.content -->
-            @stop
+            @yield('dynamic_content')
         </div>
         <!-- /.content-wrapper -->
 
