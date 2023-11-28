@@ -32,6 +32,7 @@ Route::get('/books/search', [BookController::class, 'search'])->name('books.sear
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminPanelController::class, 'index']);
     Route::get('/dashboard', [AdminPanelController::class, 'showDashboard']);
+    Route::get('/users', [AdminPanelController::class, 'showUsers']);
 
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);

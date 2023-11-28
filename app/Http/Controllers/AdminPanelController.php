@@ -15,5 +15,10 @@ class AdminPanelController extends Controller
     {
         return view('admin.pages.dashboard');
     }
+
+    public function showUsers()
+    {
+        return view('admin.pages.users');
+    }
 }
 
