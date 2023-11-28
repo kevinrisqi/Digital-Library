@@ -99,7 +99,7 @@ class BookController extends Controller
                 'abstract' => 'required',
                 'isbn' => 'required',
             ]);
-            
+
             /// * To check id is exist on DB or not
             /// * If not will throw on exception
             $book = Book::findOrFail($id);
@@ -121,11 +121,16 @@ class BookController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
+
+        /// * To check id is exist on DB or not
+        /// * If not will throw on exception
+        $book = Book::findOrFail($id);
+
         $book->delete();
 
-        return redirect()->route('books.index')
+        return redirect()->route('admin.books.index')
             ->with('success', 'Book deleted successfully.');
     }
 

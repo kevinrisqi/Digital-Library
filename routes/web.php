@@ -45,6 +45,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/books/store', [BookController::class, 'store'])->name('admin.books.store');
     Route::get('/books/edit', [BookController::class, 'edit'])->name('admin.books.edit');
     Route::put('/books/update/{id}', [BookController::class, 'update'])->name('admin.books.update');
+    Route::delete('/books/delete/{id}', [BookController::class, 'destroy'])->name('admin.books.destroy');
 
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
