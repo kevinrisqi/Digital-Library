@@ -20,5 +20,12 @@ class AdminPanelController extends Controller
     {
         return view('admin.pages.users');
     }
+
+    // public function showBooks()
+    // {
+    //     // $books = Book::all();
+    //     // return view('admin.pages.books', compact('books'));
+    //     return view('admin.pages.books');
+    // }
 }
 

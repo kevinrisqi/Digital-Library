@@ -18,7 +18,7 @@ class Book extends Model
         'author',
         'publisher',
         'abstract',
-        'ISBN',
+        'isbn',
     ];
 
     public function category (){

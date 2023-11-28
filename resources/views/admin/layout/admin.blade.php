@@ -58,6 +58,13 @@
                     </div>
                 </div>
 
+                @php
+                $dashboardActive = request()->is('admin/dashboard*');
+                $bookActive = request()->is('admin/book*');
+                $userActive = request()->is('admin/user*');
+                $transactionActive = request()->is('admin/transaction*');
+                @endphp
+
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -65,13 +72,13 @@
                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ $dashboardActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
+                            <a href="{{ route('admin.books.index') }}" class="nav-link {{ $bookActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Books
@@ -79,7 +86,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
+                            <a href="{{ route('admin.users') }}" class="nav-link {{ $userActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Users

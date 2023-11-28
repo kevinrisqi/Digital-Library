@@ -2,6 +2,9 @@
 
 @section('content')
 
-<h1>Master User</h1>
-
-@stop
+<section class="content">
+    <div class="container-fluid">
+    <h1>Users Data</h1>
+    </div><!--/. container-fluid -->
+</section>
+@endsection

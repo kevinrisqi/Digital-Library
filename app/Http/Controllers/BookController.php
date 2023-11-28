@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -16,7 +17,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index', compact('books'));
+        return view('admin.pages.books.book', compact('books'));
+        // return view('admin.pages.books');
     }
 
     /**
@@ -28,7 +30,7 @@ class BookController extends Controller
     {
         $categories = Category::all();
 
-        return view('books.create', compact('categories'));
+        return view('admin.pages.books.create', compact('categories'));
     }
 
     /**
@@ -39,22 +41,29 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'quantity' => 'required|numeric',
-            'image' => 'required',
-            'author' => 'required',
-            'publisher' => 'required',
-            'abstract' => 'required',
-            'ISBN' => 'required',
-        ]);
 
-        Book::create($request->all());
-
-        return redirect()->route('books.index')
-            ->with('success', 'Book created successfully.');
+        try {
+            //code...
+            $request->validate([
+                'category_id' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+                'quantity' => 'required|numeric',
+                'iamge',
+                'author' => 'required',
+                'publisher' => 'required',
+                'abstract' => 'required',
+                'isbn' => 'required',
+            ]);
+    
+            Book::create($request->all());
+    
+            return redirect()->route('admin.books.index')
+                ->with('success', 'Book created successfully.');
+        } catch (\Throwable $e) {
+            Log::error('Error saving data: ' . $e->getMessage());
+            dd($e->getMessage());
+        }
     }
 
     /**
@@ -120,6 +129,6 @@ class BookController extends Controller
             ->orWhere('publisher', 'like', '%' . $search . '%')
             ->get();
 
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books', 'search'));
     }
 }

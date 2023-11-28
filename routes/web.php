@@ -30,10 +30,21 @@ Route::resource('books', BookController::class)->except(['show']);
 Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
 Route::prefix('admin')->group(function () {
+    /// * Default Route
     Route::get('/', [AdminPanelController::class, 'index']);
-    Route::get('/dashboard', [AdminPanelController::class, 'showDashboard']);
-    Route::get('/users', [AdminPanelController::class, 'showUsers']);
 
+    /// * Dashboard Route
+    Route::get('/dashboard', [AdminPanelController::class, 'showDashboard'])->name('admin.dashboard');
+
+    /// * Users Route
+    Route::get('/users', [AdminPanelController::class, 'showUsers'])->name('admin.users');
+
+    /// * Books Route
+    Route::get('/books', [BookController::class, 'index'])->name('admin.books.index');
+    Route::get('/books/create', [BookController::class, 'create'])->name('admin.books.create');
+    Route::post('/books/store', [BookController::class, 'store'])->name('admin.books.store');
+
+    /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
