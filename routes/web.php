@@ -43,6 +43,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('admin.books.index');
     Route::get('/books/create', [BookController::class, 'create'])->name('admin.books.create');
     Route::post('/books/store', [BookController::class, 'store'])->name('admin.books.store');
+    Route::get('/books/edit', [BookController::class, 'edit'])->name('admin.books.edit');
+    Route::put('/books/update/{id}', [BookController::class, 'update'])->name('admin.books.update');
 
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');

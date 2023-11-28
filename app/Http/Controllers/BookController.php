@@ -43,7 +43,6 @@ class BookController extends Controller
     {
 
         try {
-            //code...
             $request->validate([
                 'category_id' => 'required',
                 'title' => 'required',
@@ -55,13 +54,12 @@ class BookController extends Controller
                 'abstract' => 'required',
                 'isbn' => 'required',
             ]);
-    
+
             Book::create($request->all());
-    
+
             return redirect()->route('admin.books.index')
                 ->with('success', 'Book created successfully.');
         } catch (\Throwable $e) {
-            Log::error('Error saving data: ' . $e->getMessage());
             dd($e->getMessage());
         }
     }
@@ -77,7 +75,7 @@ class BookController extends Controller
         // Retrieve all categories
         $categories = Category::all();
 
-        return view('books.edit', compact('book', 'categories'));
+        return view('admin.pages.books.edit', compact('book', 'categories'));
     }
 
     /**
@@ -87,24 +85,34 @@ class BookController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'category_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'quantity' => 'required|numeric',
-            'image' => 'required',
-            'author' => 'required',
-            'publisher' => 'required',
-            'abstract' => 'required',
-            'ISBN' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'category_id' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+                'quantity' => 'required|numeric',
+                'image' => 'required',
+                'author' => 'required',
+                'publisher' => 'required',
+                'abstract' => 'required',
+                'isbn' => 'required',
+            ]);
+            
+            /// * To check id is exist on DB or not
+            /// * If not will throw on exception
+            $book = Book::findOrFail($id);
 
-        $book->update($request->all());
+            /// * Query Update
+            $book->update($request->all());
 
-        return redirect()->route('books.index')
-            ->with('success', 'Book updated successfully.');
+            /// * Routing to index book
+            return redirect()->route('admin.books.index')
+                ->with('success', 'Book updated successfully.');
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**
