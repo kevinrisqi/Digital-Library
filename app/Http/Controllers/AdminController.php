@@ -13,8 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::all();
-        return view('admin.index', compact('admins'));
+        return view('admin.dashboard');
     }
 
     public function create()
@@ -39,4 +38,5 @@ class AdminController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Admin created successfully');
     }
+
 }

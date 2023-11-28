@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,8 @@ Route::resource('books', BookController::class)->except(['show']);
 Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [AdminPanelController::class, 'index']);
+    Route::get('/dashboard', [AdminPanelController::class, 'showDashboard']);
 
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);
@@ -40,14 +42,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
     // Add other admin routes...
 });
-
-Route::middleware(['auth'])->group(function () {
-    // Your authenticated routes here...
-});
-
-Route::middleware(['auth:admin'])->group(function () {
-    // Your admin-only routes here...
-});
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
