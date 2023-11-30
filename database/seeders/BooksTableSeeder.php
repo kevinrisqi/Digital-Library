@@ -26,7 +26,7 @@ class BooksTableSeeder extends Seeder
                 'author' => $faker->name,
                 'publisher' => $faker->company,
                 'abstract' => 'lorem ipsum',
-                'ISBN' => '494993949',
+                'isbn' => '494993949',
                 'quantity' => $faker->numberBetween(1, 5),
                 'category_id' => $faker->randomElement($id_category),
             ],

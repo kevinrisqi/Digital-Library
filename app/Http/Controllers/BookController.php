@@ -149,6 +149,6 @@ class BookController extends Controller
             ->orWhere('publisher', 'like', '%' . $search . '%')
             ->get();
 
-        return view('books.index', compact('books', 'search'));
+        return view('admin.pages.books.book', compact('books', 'search'));
     }
 }

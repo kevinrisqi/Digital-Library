@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
+    /// * Transaction Route
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.transactions.index');
+    Route::get('/transactions/create', [TransactionController::class, 'create'])->name('admin.transactions.create');
+    Route::post('/transactions/store', [TransactionController::class, 'store'])->name('admin.transactions.store');
+    Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('admin.transactions.edit');
+    Route::put('/transactions/update/{id}', [TransactionController::class, 'update'])->name('admin.transactions.update');
+    Route::delete('/transactions/destroy/{id}', [TransactionController::class, 'destroy'])->name('admin.transactions.destroy');
 
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');

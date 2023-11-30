@@ -24,30 +24,38 @@ class TransactionsTableSeeder extends Seeder
                 'user_id' => $faker->randomElement($user_ids),
                 'book_id' => $faker->randomElement($book_ids),
                 'borrowed_date' => $faker->date,
-                'returned_date' => $faker->optional(0.7)->date,
-                'status' => $faker->randomElement(['borrowed', 'returned']),
+                'returned_date' => null,
+                'status' => 'borrowed',
                 'quantity' => $faker->numberBetween(1, 3),
+                'borrow_days' => 7,
+                'due_date' => now()->addDays(7),
+                'returned' => false,
             ],
             [
                 'user_id' => $faker->randomElement($user_ids),
                 'book_id' => $faker->randomElement($book_ids),
                 'borrowed_date' => $faker->date,
-                'returned_date' => $faker->optional(0.7)->date,
-                'status' => $faker->randomElement(['borrowed', 'returned']),
+                'returned_date' => now()->addDays(4),
+                'status' => 'returned',
                 'quantity' => $faker->numberBetween(1, 3),
+                'borrow_days' => 4,
+                'due_date' => now()->addDays(4),
+                'returned' => true,
             ],
             [
                 'user_id' => $faker->randomElement($user_ids),
                 'book_id' => $faker->randomElement($book_ids),
                 'borrowed_date' => $faker->date,
-                'returned_date' => $faker->optional(0.7)->date,
-                'status' => $faker->randomElement(['borrowed', 'returned']),
+                'returned_date' => null,
+                'status' => 'borrowed',
                 'quantity' => $faker->numberBetween(1, 3),
+                'borrow_days' => 3,
+                'due_date' => now()->addDays(3),
+                'returned' => false,
             ],
             // Add more transactions as needed
         ];
-        
+
         DB::table('transactions')->insert($transactions);
-        
     }
 }

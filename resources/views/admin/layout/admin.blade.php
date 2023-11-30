@@ -103,7 +103,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
+                            <a href="{{ route('admin.transactions.index') }}" class="nav-link {{ $transactionActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Transactions

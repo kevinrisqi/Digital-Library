@@ -16,6 +16,9 @@ class Transaction extends Model
         'returned_date',
         'status',
         'quantity',
+        'borrow_days',
+        'due_date',
+        'returned',
     ];
 
     /**
