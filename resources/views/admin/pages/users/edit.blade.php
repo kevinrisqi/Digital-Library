@@ -11,6 +11,7 @@
                 <div class="card-body">
                     <h4>Edit User</h4>
                     <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+
                         @csrf
                         @method('PUT')
                         <div class="form-group">

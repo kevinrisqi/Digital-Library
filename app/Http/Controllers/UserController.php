@@ -41,16 +41,31 @@ class UserController extends Controller
     //     return view('admin.users.show', compact('user'));
     // }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('admin.pages.users.edit', compact('user'));
+        try {
+            // dd($id);
+    
+            $user = User::find($id);
+    
+            if (!$user) {
+                abort(404); // or redirect to a 404 page
+            }
+    
+            // Add the following lines for debugging
+            // dd($id, $user);
+    
+            return view('admin.pages.users.edit', compact('user'));
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,',
             'password' => 'nullable|min:6',
             'is_admin' => 'boolean',
         ]);
@@ -61,6 +76,10 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->input('password'));
         }
 
+        /// * To check id is exist on DB or not
+        /// * If not will throw on exception
+        $user = User::findOrFail($id);
+
         $user->update($data);
 
         return redirect()->route('admin.users.index')
@@ -70,7 +89,7 @@ class UserController extends Controller
     public function destroy($id)
     {
 
-         /// * To check id is exist on DB or not
+        /// * To check id is exist on DB or not
         /// * If not will throw on exception
         $user = User::findOrFail($id);
 

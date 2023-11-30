@@ -49,7 +49,7 @@
                                         <td>{{ $book->isbn }}</td>
                                         <td>{{ $book->category->name }}</td>
                                         <td>
-                                            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="{{ route('admin.books.edit', ['id' => $book->id]) }}" class="btn btn-primary btn-sm">Edit</a>
                                             <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

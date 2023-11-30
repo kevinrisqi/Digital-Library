@@ -27,8 +27,8 @@ Route::get('/', function () {
 
 Route::resource('categories', CategoryController::class);
 
-Route::resource('books', BookController::class)->except(['show']);
-Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
+// Route::resource('books', BookController::class)->except(['show']);
+// Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
 Route::prefix('admin')->group(function () {
     /// * Default Route
@@ -41,7 +41,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('admin.books.index');
     Route::get('/books/create', [BookController::class, 'create'])->name('admin.books.create');
     Route::post('/books/store', [BookController::class, 'store'])->name('admin.books.store');
-    Route::get('/books/edit', [BookController::class, 'edit'])->name('admin.books.edit');
+    Route::get('/books/edit/{id}', [BookController::class, 'edit'])->name('admin.books.edit');
     Route::put('/books/update/{id}', [BookController::class, 'update'])->name('admin.books.update');
     Route::delete('/books/delete/{id}', [BookController::class, 'destroy'])->name('admin.books.destroy');
 
@@ -49,7 +49,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
-    Route::get('/users/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 

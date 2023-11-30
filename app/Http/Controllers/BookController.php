@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
@@ -70,8 +71,14 @@ class BookController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
+        $book = Book::find($id);
+
+        if (!$book) {
+            abort(404); // or redirect to a 404 page
+        }
+
         // Retrieve all categories
         $categories = Category::all();
 

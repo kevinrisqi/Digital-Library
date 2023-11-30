@@ -35,7 +35,7 @@
                                         <td>{{ $user->updated_at }}</td>
                                         <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
                                         <td>
-                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                                            <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
                                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
