@@ -52,8 +52,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+         /// * To check id is exist on DB or not
+        /// * If not will throw on exception
+        $category = Category::findOrFail($id);
+
         return view('admin.pages.categories.edit', compact('category'));
     }
 
@@ -64,11 +68,15 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:255' . $category->id,
+            'name' => 'required|max:255',
         ]);
+
+         /// * To check id is exist on DB or not
+        /// * If not will throw on exception
+        $category = Category::findOrFail($id);
 
         $category->update($request->all());
 
