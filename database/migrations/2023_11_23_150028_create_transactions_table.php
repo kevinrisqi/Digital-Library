@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('returned_date')->nullable();
             $table->string('status');
             $table->integer('quantity');
+            $table->unsignedInteger('borrow_days')->default(7);
+            $table->date('due_date')->nullable();
+            $table->boolean('returned')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
