@@ -63,27 +63,31 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,',
-            'password' => 'nullable|min:6',
-            'is_admin' => 'boolean',
-        ]);
-
-        $data = $request->except('password');
-
-        if ($request->has('password')) {
-            $data['password'] = bcrypt($request->input('password'));
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'nullable|min:6',
+                'is_admin' => 'boolean',
+            ]);
+    
+            $data = $request->except('password');
+    
+            if ($request->has('password')) {
+                $data['password'] = bcrypt($request->input('password'));
+            }
+    
+            /// * To check id is exist on DB or not
+            /// * If not will throw on exception
+            $user = User::findOrFail($id);
+    
+            $user->update($data);
+    
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User updated successfully.');
+        } catch (\Throwable $th) {
+            dd($th);
         }
-
-        /// * To check id is exist on DB or not
-        /// * If not will throw on exception
-        $user = User::findOrFail($id);
-
-        $user->update($data);
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User updated successfully.');
     }
 
     public function destroy($id)
