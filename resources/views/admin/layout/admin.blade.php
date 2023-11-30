@@ -86,7 +86,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.users') }}" class="nav-link {{ $userActive ? 'active' : ''}}">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ $userActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Users

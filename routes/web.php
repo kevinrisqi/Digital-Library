@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,9 +37,6 @@ Route::prefix('admin')->group(function () {
     /// * Dashboard Route
     Route::get('/dashboard', [AdminPanelController::class, 'showDashboard'])->name('admin.dashboard');
 
-    /// * Users Route
-    Route::get('/users', [AdminPanelController::class, 'showUsers'])->name('admin.users');
-
     /// * Books Route
     Route::get('/books', [BookController::class, 'index'])->name('admin.books.index');
     Route::get('/books/create', [BookController::class, 'create'])->name('admin.books.create');
@@ -46,6 +44,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/books/edit', [BookController::class, 'edit'])->name('admin.books.edit');
     Route::put('/books/update/{id}', [BookController::class, 'update'])->name('admin.books.update');
     Route::delete('/books/delete/{id}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+
+    /// * User Route
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
 
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
