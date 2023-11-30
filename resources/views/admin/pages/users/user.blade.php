@@ -23,6 +23,7 @@
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                         <th>Role</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,6 +34,14 @@
                                         <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->updated_at }}</td>
                                         <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

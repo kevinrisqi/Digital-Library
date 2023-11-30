@@ -63,15 +63,20 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.pages.users.user')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully.');
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
+
+         /// * To check id is exist on DB or not
+        /// * If not will throw on exception
+        $user = User::findOrFail($id);
+
         $user->delete();
 
-        return redirect()->route('admin.pages.users.user')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User deleted successfully.');
     }
 }
