@@ -62,6 +62,7 @@
                 $dashboardActive = request()->is('admin/dashboard*');
                 $bookActive = request()->is('admin/book*');
                 $userActive = request()->is('admin/user*');
+                $categoryActive = request()->is('admin/categories*');
                 $transactionActive = request()->is('admin/transaction*');
                 @endphp
 
@@ -94,7 +95,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link {{ $categoryActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Categories

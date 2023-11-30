@@ -25,7 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('categories', CategoryController::class);
+// Route::resource('categories', CategoryController::class);
 
 // Route::resource('books', BookController::class)->except(['show']);
 // Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
@@ -53,6 +53,14 @@ Route::prefix('admin')->group(function () {
     Route::put('/users/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
+    /// * Category Route
+    Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);
@@ -64,4 +72,4 @@ Route::prefix('admin')->group(function () {
     // Add other admin routes...
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
