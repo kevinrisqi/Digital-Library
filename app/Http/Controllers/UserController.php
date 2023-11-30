@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.pages.users.create');
     }
 
     public function store(Request $request)
@@ -36,14 +36,14 @@ class UserController extends Controller
             ->with('success', 'User created successfully.');
     }
 
-    public function show(User $user)
-    {
-        return view('admin.users.show', compact('user'));
-    }
+    // public function show(User $user)
+    // {
+    //     return view('admin.users.show', compact('user'));
+    // }
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.pages.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -63,7 +63,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.pages.users.user')
             ->with('success', 'User updated successfully.');
     }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.pages.users.user')
             ->with('success', 'User deleted successfully.');
     }
 }
