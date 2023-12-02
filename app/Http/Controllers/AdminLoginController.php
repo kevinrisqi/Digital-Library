@@ -17,7 +17,11 @@ class AdminLoginController extends Controller
         // Validate the login request
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended(route('admin.dashboard.index'));
+            $user = Auth::user(); // Get the authenticated user
+            $name = $user->name;
+
+
+            return redirect()->intended(route('admin.dashboard.index'))->with('name', $name);
         }
 
         return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
