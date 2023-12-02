@@ -24,7 +24,8 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" oninvalid="this.setCustomValidity('Please fill out this field')"
+       oninput="this.setCustomValidity('')" required>
                         </div>
                         <div class="form-group">
                             <label for="is_admin">Is Admin</label>
