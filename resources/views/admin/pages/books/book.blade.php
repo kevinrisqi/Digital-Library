@@ -13,11 +13,16 @@
                 <div class="card-body">
                     <!-- Add Book Button -->
                     <a href="{{ route('admin.books.create') }}" class="btn btn-primary mb-3">Add Book</a>
+                    <form action="{{ route('admin.books.index') }}" method="GET" class="form-inline mb-2">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Books Data</h3>
                         </div>
                         <!-- /.card-header -->
+
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
@@ -63,6 +68,7 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
+
 
                     </div>
 

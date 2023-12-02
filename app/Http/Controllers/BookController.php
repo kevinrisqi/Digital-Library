@@ -16,11 +16,28 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
-        return view('admin.pages.books.book', compact('books'));
-        // return view('admin.pages.books');
+        // Get the search term from the request
+        $search = $request->input('search');
+
+        if ($search) {
+            // Query books based on the search term
+            $books = Book::where('title', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')
+                ->orWhere('author', 'like', '%' . $search . '%')
+                ->orWhere('publisher', 'like', '%' . $search . '%')->get();
+
+            // dd($books);
+
+            // Pass the search term and books to the view
+            return view('admin.pages.books.book', compact('search', 'books'));
+        } else {
+
+            $books = Book::all();
+            return view('admin.pages.books.book', compact('books'));
+            // return view('admin.pages.books');
+        }
     }
 
     /**
