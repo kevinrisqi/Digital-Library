@@ -10,6 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Transaction History</h4>
+                    <a href="{{ route('admin.books.index') }}" type="submit" class="btn btn-primary">Tambah Transaksi</a>
                 </div>
                 <div class="card-body">
                     <table class="table">
