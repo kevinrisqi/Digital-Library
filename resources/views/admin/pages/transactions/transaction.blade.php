@@ -17,7 +17,6 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>User</th>
                                 <th>Book</th>
                                 <th>Borrowed Date</th>
                                 <th>Returned Date</th>
@@ -33,7 +32,6 @@
                             @foreach ($transactions as $transaction)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaction->user->name }}</td>
                                 <td>{{ $transaction->book->title }}</td>
                                 <td>{{ $transaction->borrowed_date }}</td>
                                 <td>{{ $transaction->returned_date }}</td>
