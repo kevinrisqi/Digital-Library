@@ -22,13 +22,6 @@
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
                         </div>
-                        <div class="form-group">
-                            <label for="is_admin">Is Admin</label>
-                            <select name="is_admin" id="is_admin" class="form-control">
-                                <option value="0" {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
-                                <option value="1" {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin</option>
-                            </select>
-                        </div>
                         <button type="submit" class="btn btn-primary">Update User</button>
                     </form>
                 </div>
