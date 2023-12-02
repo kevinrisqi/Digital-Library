@@ -21,7 +21,7 @@ class AdminLoginController extends Controller
             $user = Auth::user(); // Get the authenticated user
             $name = $user->name;
 
-            session('name', $name);
+            session(['name' => $name]);
 
             return redirect()->intended(route('admin.dashboard.index'));
         }
