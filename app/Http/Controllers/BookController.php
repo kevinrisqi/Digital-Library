@@ -132,7 +132,7 @@ class BookController extends Controller
             // Check if a new image is uploaded
             if ($request->hasFile('image')) {
                 // Delete existing image if needed
-                // Storage::disk('public')->delete($book->image);
+                Storage::disk('public')->delete($book->image);
 
                 // Upload new image
                 $imagePath = $request->file('image')->store('books_images', 'public');
