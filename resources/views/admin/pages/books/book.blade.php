@@ -47,7 +47,7 @@
                                         <td>{{ $book->title }}</td>
                                         <td>{{ $book->description }}</td>
                                         <td>{{ $book->quantity }}</td>
-                                        <td><img src="{{ asset('storage/' . $book->image) }}" alt="Book Image">
+                                        <td><img width ="100" src="{{ asset('storage/' . $book->image) }}" alt="Book Image">
                                         </td>
                                         <td>{{ $book->author }}</td>
                                         <td>{{ $book->publisher }}</td>
