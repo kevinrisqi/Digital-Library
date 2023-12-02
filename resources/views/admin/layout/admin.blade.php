@@ -73,7 +73,7 @@
                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ $dashboardActive ? 'active' : ''}}">
+                            <a href="{{ route('admin.dashboard.index') }}" class="nav-link {{ $dashboardActive ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>

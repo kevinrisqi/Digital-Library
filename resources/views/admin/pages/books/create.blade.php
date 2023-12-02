@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <h4>Add Books</h4>
                     <div class="form-group"></div>
-                    <form action="{{ route('admin.books.store') }}" method="POST">
+                    <form action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="title">Title</label>
@@ -34,10 +34,6 @@
                             <input type="number" class="form-control" id="quantity" name="quantity" required>
                         </div>
                         <div class="form-group">
-                            <!-- <label for="image">Image</label> -->
-                            <input type="text" class="form-control" id="image" name="image" value="image" hidden>
-                        </div>
-                        <div class="form-group">
                             <label for="author">Author</label>
                             <input type="text" class="form-control" id="author" name="author" required>
                         </div>
@@ -52,6 +48,10 @@
                         <div class="form-group">
                             <label for="isbn">ISBN</label>
                             <input type="text" class="form-control" id="isbn" name="isbn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
                         </div>
                         <button type="submit" class="btn btn-primary">Add Book</button>
                     </form>

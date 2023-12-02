@@ -25,6 +25,7 @@
                                 <th>Borrow Days</th>
                                 <th>Due Date</th>
                                 <th>Returned</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -35,11 +36,21 @@
                                 <td>{{ $transaction->book->title }}</td>
                                 <td>{{ $transaction->borrowed_date }}</td>
                                 <td>{{ $transaction->returned_date }}</td>
-                                <td>{{ $transaction->status }}</td>
+                                <td>{{ $transaction->status ?? '-' }}</td>
                                 <td>{{ $transaction->quantity }}</td>
                                 <td>{{ $transaction->borrow_days }}</td>
                                 <td>{{ $transaction->due_date }}</td>
-                                <td>{{ $transaction->returned }}</td>
+                                <td>
+                                    @if ($transaction->returned == 0)
+                                    <form action="{{ route('admin.transactions.returnBook', $transaction->id) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <button type="submit" class="btn btn-primary">Set Kembali</button>
+                                    </form>
+                                    @else
+                                    Buku Sudah Dikembalikan
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

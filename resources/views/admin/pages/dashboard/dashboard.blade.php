@@ -8,13 +8,12 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Total Buku</span>
                         <span class="info-box-number">
-                            100
-                            <small>%</small>
+                        {{ $totalBooks }}
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -24,11 +23,11 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">User</span>
-                        <span class="info-box-number">10 User</span>
+                        <span class="info-box-number">{{ $totalUsers }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -41,11 +40,11 @@
 
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-exchange-alt"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Buku Sedang Terpinjam</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-text">Total Transaksi</span>
+                        <span class="info-box-number">{{ $totalTransactions }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -54,11 +53,11 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-book"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Buku Telah Terpinjam</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-text">Buku Sedang Dipinjam</span>
+                        <span class="info-box-number">{{ $totalBorrowedBooks }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

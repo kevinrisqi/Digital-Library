@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -49,14 +50,32 @@ class BookController extends Controller
                 'title' => 'required',
                 'description' => 'required',
                 'quantity' => 'required|numeric',
-                'iamge',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'author' => 'required',
                 'publisher' => 'required',
                 'abstract' => 'required',
                 'isbn' => 'required',
             ]);
 
-            Book::create($request->all());
+            if ($request->hasFile('image')) {
+                // Ensure the 'image' file is present in the request
+                $imagePath = $request->file('image')->store('books_images', 'public');
+            } else {
+                // Handle the case where no image is provided
+                $imagePath = null;
+            }
+
+            Book::create([
+                'category_id' => $request->category_id,
+                'title' => $request->title,
+                'description' => $request->description,
+                'quantity' => $request->quantity,
+                'image' => $imagePath,
+                'author' => $request->author,
+                'publisher' => $request->publisher,
+                'abstract' => $request->abstract,
+                'isbn' => $request->isbn,
+            ]);
 
             return redirect()->route('admin.books.index')
                 ->with('success', 'Book created successfully.');
@@ -100,27 +119,36 @@ class BookController extends Controller
                 'title' => 'required',
                 'description' => 'required',
                 'quantity' => 'required|numeric',
-                'image' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'author' => 'required',
                 'publisher' => 'required',
                 'abstract' => 'required',
                 'isbn' => 'required',
             ]);
 
-            /// * To check id is exist on DB or not
-            /// * If not will throw on exception
+            // Find the book by ID
             $book = Book::findOrFail($id);
 
-            /// * Query Update
-            $book->update($request->all());
+            // Check if a new image is uploaded
+            if ($request->hasFile('image')) {
+                // Delete existing image if needed
+                // Storage::disk('public')->delete($book->image);
 
-            /// * Routing to index book
-            return redirect()->route('admin.books.index')
-                ->with('success', 'Book updated successfully.');
+                // Upload new image
+                $imagePath = $request->file('image')->store('books_images', 'public');
+                $book->update(['image' => $imagePath]);
+            }
+
+            // Update other fields
+            $book->update($request->except('image'));
+
+            // Redirect to the index page
+            return redirect()->route('admin.books.index')->with('success', 'Book updated successfully.');
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
     }
+
 
     /**
      * Remove the specified book from the database.

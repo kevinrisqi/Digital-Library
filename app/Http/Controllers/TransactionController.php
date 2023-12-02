@@ -53,5 +53,24 @@ class TransactionController extends Controller
 
         return redirect()->route('admin.pages.transactions.transaction')->with('success', 'Transaction deleted successfully.');
     }
-}
 
+    public function returnBook(Transaction $transaction)
+    {
+        try {
+            // Update the transaction
+            $transaction->returned = 1;
+            $transaction->status = 'Returned';
+            $transaction->returned_date = now();
+            $transaction->save();
+
+            // Update the quantity of the book
+            $book = $transaction->book;
+            $book->quantity += $transaction->quantity;
+            $book->save();
+
+            return redirect()->route('admin.pages.transactions.transaction')->with('success', 'Buku berhasil dikembalikan.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.pages.transactions.transaction')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+}

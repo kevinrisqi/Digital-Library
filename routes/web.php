@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -33,10 +34,10 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     /// * Default Route
-    Route::get('/', [AdminPanelController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'showDashboard']);
 
     /// * Dashboard Route
-    Route::get('/dashboard', [AdminPanelController::class, 'showDashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('admin.dashboard.index');
 
     /// * Books Route
     Route::get('/books', [BookController::class, 'index'])->name('admin.books.index');
@@ -69,6 +70,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('admin.transactions.edit');
     Route::put('/transactions/update/{id}', [TransactionController::class, 'update'])->name('admin.transactions.update');
     Route::delete('/transactions/destroy/{id}', [TransactionController::class, 'destroy'])->name('admin.transactions.destroy');
+    Route::put('/transactions/returnBook/{id}', [TransactionController::class, 'returnBook'])->name('admin.transactions.returnBook');
 
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
