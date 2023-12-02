@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -23,19 +24,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::resource('categories', CategoryController::class);
 
 // Route::resource('books', BookController::class)->except(['show']);
 // Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('admin')->group(function () {
     /// * Default Route
     Route::get('/', [DashboardController::class, 'showDashboard']);
-
+    
     /// * Dashboard Route
     Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('admin.dashboard.index');
 
@@ -65,8 +66,8 @@ Route::prefix('admin')->group(function () {
 
     /// * Transaction Route
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.transactions.index');
-    Route::get('/transactions/create', [TransactionController::class, 'create'])->name('admin.transactions.create');
-    Route::post('/transactions/store', [TransactionController::class, 'store'])->name('admin.transactions.store');
+    Route::get('/transactions/create/{book_id}', [TransactionController::class, 'create'])->name('admin.transactions.create');
+    Route::post('/transactions/store/{book_id}', [TransactionController::class, 'store'])->name('admin.transactions.store');
     Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('admin.transactions.edit');
     Route::put('/transactions/update/{id}', [TransactionController::class, 'update'])->name('admin.transactions.update');
     Route::delete('/transactions/destroy/{id}', [TransactionController::class, 'destroy'])->name('admin.transactions.destroy');
@@ -75,12 +76,27 @@ Route::prefix('admin')->group(function () {
     /// * Login Route
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);
-    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
-    Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-    Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+    // Route::get('/login', 'AdminLoginController@showLoginForm')->name('admin.login');
+    // Route::post('/login', 'AdminLoginController@login');
+    // Route::post('/logout', 'AdminLoginController@logout')->name('admin.logout');
+
+
+    // Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
+    // Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+    // Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
     // Add other admin routes...
 });
+
+Route::get('/', [HomeController::class, 'listBooks']);
+
+// Route::middleware(['auth'])->group(function () {
+//     // Your authenticated routes here...
+// });
+
+// Route::middleware(['auth:admin'])->group(function () {
+//     // Your admin-only routes here...
+// });
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

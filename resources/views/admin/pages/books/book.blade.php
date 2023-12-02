@@ -61,6 +61,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                                             </form>
+                                            <a href="{{ route('admin.transactions.create', ['book_id' => $book->id]) }}" class="btn btn-success btn-sm">Borrow</a>
                                         </td>
                                     </tr>
                                     @endforeach

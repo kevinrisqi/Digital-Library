@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 
@@ -15,20 +16,42 @@ class TransactionController extends Controller
         return view('admin.pages.transactions.transaction', compact('transactions'));
     }
 
-    public function create()
+    public function create($book_id)
     {
-        return view('admin.transactions.create');
+        return view('admin.pages.transactions.create', compact('book_id'));
     }
 
-    public function store(Request $request)
+    public function store($book_id)
     {
-        $request->validate([
-            // Add your validation rules here based on your model
-        ]);
+        try {
+            // Retrieve the book
+            $book = Book::findOrFail($book_id);
 
-        Transaction::create($request->all());
+            // Check if the book is available
+            if ($book->quantity <= 0) {
+                return redirect()->route('admin.books.index')->with('error', 'The book is not available for borrowing.');
+            }
 
-        return redirect()->route('admin.pages.transactions.transaction')->with('success', 'Transaction created successfully.');
+            // Create a new transaction
+            Transaction::create([
+                'user_id' => 1, // Assuming you are using authentication
+                'book_id' => $book_id,
+                'borrowed_date' => now(),
+                'status' => 'Borrowed',
+                'quantity' => 1, // You can adjust this based on your requirements
+                'borrow_days' => 7, // Set the number of days for borrowing
+                'due_date' => now()->addDays(7), // Due date is set to 7 days from now
+                'returned' => 0,
+            ]);
+
+            // Update the book quantity
+            $book->decrement('quantity');
+
+            return redirect()->route('admin.transactions.index')->with('success', 'Book borrowed successfully.');
+        } catch (\Throwable $e) {
+            dd($e);
+            return redirect()->route('admin.books.index')->with('error', 'Error creating transaction.');
+        }
     }
 
     public function edit(Transaction $transaction)

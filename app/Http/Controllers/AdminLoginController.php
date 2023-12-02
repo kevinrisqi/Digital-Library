@@ -17,7 +17,7 @@ class AdminLoginController extends Controller
         // Validate the login request
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('admin.dashboard.index'));
         }
 
         return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
@@ -26,6 +26,6 @@ class AdminLoginController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect('/admin/login');
+        return redirect()->intended(route('admin.login'));
     }
 }
