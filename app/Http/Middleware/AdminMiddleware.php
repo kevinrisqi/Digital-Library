@@ -17,11 +17,11 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Check if the user is authenticated
-        // if (!Auth::guard('admin')->check()) {
-        //     error_log('bridge by middleware');
-        //     // If not authenticated, redirect to the admin login page or do something else
-        //     return redirect()->route('admin.login');
-        // }
+        if (!Auth::guard('admin')->check()) {
+            // error_log('bridge by middleware');
+            // If not authenticated, redirect to the admin login page or do something else
+            return route('admin.login');
+        }
         return $next($request);
     }
 }
