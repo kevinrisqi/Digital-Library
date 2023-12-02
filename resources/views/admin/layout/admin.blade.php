@@ -98,7 +98,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
+                            <a href="{{ route('admin.logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i> <!-- Sign-out icon for Logout -->
                                 <p>Logout</p>
                             </a>

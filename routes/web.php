@@ -33,10 +33,10 @@ use Illuminate\Support\Facades\Route;
 // Route::resource('books', BookController::class)->except(['show']);
 // Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
-Route::prefix('admin')->middleware('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     /// * Default Route
     Route::get('/', [DashboardController::class, 'showDashboard']);
-    
+
     /// * Dashboard Route
     Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('admin.dashboard.index');
 
@@ -73,10 +73,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::delete('/transactions/destroy/{id}', [TransactionController::class, 'destroy'])->name('admin.transactions.destroy');
     Route::put('/transactions/returnBook/{id}', [TransactionController::class, 'returnBook'])->name('admin.transactions.returnBook');
 
-    /// * Login Route
-    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('/login', [AdminLoginController::class, 'login']);
-    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
 
     // Route::get('/login', 'AdminLoginController@showLoginForm')->name('admin.login');
     // Route::post('/login', 'AdminLoginController@login');
@@ -87,9 +84,14 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     // Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
     // Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
     // Add other admin routes...
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
 Route::get('/', [HomeController::class, 'listBooks']);
+
+/// * Login Route
+Route::post('/login', [AdminLoginController::class, 'login']);
+Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 
 // Route::middleware(['auth'])->group(function () {
 //     // Your authenticated routes here...
