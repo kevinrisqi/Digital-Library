@@ -26,6 +26,6 @@ class AdminLoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->intended(route('admin.logout'));
+        return redirect()->intended(route('admin.login'));
     }
 }

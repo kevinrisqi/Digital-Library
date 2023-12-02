@@ -73,25 +73,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/transactions/destroy/{id}', [TransactionController::class, 'destroy'])->name('admin.transactions.destroy');
     Route::put('/transactions/returnBook/{id}', [TransactionController::class, 'returnBook'])->name('admin.transactions.returnBook');
 
-
-
-    // Route::get('/login', 'AdminLoginController@showLoginForm')->name('admin.login');
-    // Route::post('/login', 'AdminLoginController@login');
-    // Route::post('/logout', 'AdminLoginController@logout')->name('admin.logout');
-
-
-    // Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
-    // Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-    // Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
-    // Add other admin routes...
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
 Route::get('/', [HomeController::class, 'listBooks']);
 
 /// * Login Route
-Route::post('/login', [AdminLoginController::class, 'login']);
 Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/login', [AdminLoginController::class, 'login']);
 
 // Route::middleware(['auth'])->group(function () {
 //     // Your authenticated routes here...
