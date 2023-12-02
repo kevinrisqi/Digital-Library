@@ -21,7 +21,7 @@ class TransactionController extends Controller
         return view('admin.pages.transactions.create', compact('book_id'));
     }
 
-    public function store($book_id)
+    public function store(Request $request, $book_id)
     {
         try {
             // Retrieve the book
@@ -38,9 +38,9 @@ class TransactionController extends Controller
                 'book_id' => $book_id,
                 'borrowed_date' => now(),
                 'status' => 'Borrowed',
-                'quantity' => 1, // You can adjust this based on your requirements
-                'borrow_days' => 7, // Set the number of days for borrowing
-                'due_date' => now()->addDays(7), // Due date is set to 7 days from now
+                'quantity' => $request->quantity, // You can adjust this based on your requirements
+                'borrow_days' => $request->borrow_days, // Set the number of days for borrowing
+                'due_date' => now()->addDays($request->borrow_days), // Due date is set to 7 days from now
                 'returned' => 0,
             ]);
 
@@ -77,9 +77,13 @@ class TransactionController extends Controller
         return redirect()->route('admin.pages.transactions.transaction')->with('success', 'Transaction deleted successfully.');
     }
 
-    public function returnBook(Transaction $transaction)
+    public function returnBook($id)
     {
         try {
+
+             // Find the book by ID
+             $transaction = Transaction::findOrFail($id);
+
             // Update the transaction
             $transaction->returned = 1;
             $transaction->status = 'Returned';
@@ -91,9 +95,9 @@ class TransactionController extends Controller
             $book->quantity += $transaction->quantity;
             $book->save();
 
-            return redirect()->route('admin.pages.transactions.transaction')->with('success', 'Buku berhasil dikembalikan.');
+            return redirect()->route('admin.transactions.index')->with('success', 'Buku berhasil dikembalikan.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.pages.transactions.transaction')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('admin.transactions.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 }
