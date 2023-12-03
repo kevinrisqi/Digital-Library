@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Transaction;
 
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
+
 class TransactionController extends Controller
 {
     public function index()
@@ -84,8 +87,12 @@ class TransactionController extends Controller
              // Find the book by ID
              $transaction = Transaction::findOrFail($id);
 
+             $faker = Faker::create();
+
+             $id_user = DB::table('users')->pluck('id')->toArray();
+
             // Update the transaction
-            $transaction->returned = 1;
+            $transaction->returned = $faker->randomElement($id_user);
             $transaction->status = 'Returned';
             $transaction->returned_date = now();
             $transaction->save();
